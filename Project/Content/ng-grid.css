@@ -9,7 +9,6 @@
   vertical-align: top;
   margin:2px;
   outline:2px solid grey;
-  //border:none;
 }
 .ngGrid.unselectable {
   -moz-user-select: none;

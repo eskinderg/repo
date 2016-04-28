@@ -624,10 +624,12 @@ input[type="text"].ui-grid-filter-input:hover {
   right: auto;
 }
 .ui-grid[dir="rtl"] .ui-grid-filter-container .ui-grid-filter-button {
+    /* ReSharper disable once InvalidValue */
   right: initial;
   left: 0;
 }
 .ui-grid[dir="rtl"] .ui-grid-filter-container .ui-grid-filter-button [class^="ui-grid-icon"] {
+    /* ReSharper disable once InvalidValue */
   right: initial;
   left: 10px;
 }

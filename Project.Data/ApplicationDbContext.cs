@@ -18,7 +18,8 @@ namespace Project.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasMany<Expense>(c=>c.ex
-        }*/
+        }
+         */
 
     }
 }

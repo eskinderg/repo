@@ -39,6 +39,7 @@ project.controller('ExpenseGridController', function ($scope, expenseService ) {
         selectedItems: $scope.mySelections,
         enableCellEdit: true,
         enableColumnResize: true,
+        showFooter: true,
 
             columnDefs:
             [

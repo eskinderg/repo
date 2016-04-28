@@ -1,11 +1,8 @@
-﻿using Project.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Project.Data.IRepositories;
+using Project.Data.Repositories;
 
-namespace Project.Data
+namespace Project.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

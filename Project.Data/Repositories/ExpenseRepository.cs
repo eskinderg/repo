@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Project.Model;
 using System.Data.Entity;
+using System.Linq;
+using Project.Data.IRepositories;
+using Project.Model;
 
-namespace Project.Data
+namespace Project.Data.Repositories
 {
     public class ExpenseRepository: Repository<Expense>, IExpenseRepository
     {
@@ -28,9 +29,21 @@ namespace Project.Data
                                                 .Where(e => e.Date > DateTime.Now);
         }
 
-        public ApplicationDbContext ApplicationDbContext
+        public IEnumerable<Expense> GetExpiredExpenses()
+        {
+            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory)
+                                                .Where(e => e.Date < DateTime.Now);
+        }
+
+        private ApplicationDbContext ApplicationDbContext
         {
             get { return Context as ApplicationDbContext; }
+        }
+
+        public IEnumerable<Expense> RemoveExpiredExpenses()
+        {
+            var expiredExpenses = this.GetExpiredExpenses();
+            return base.DeleteRange(expiredExpenses, true);
         }
     }
 }

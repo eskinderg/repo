@@ -1,6 +1,7 @@
 ﻿using System;
+using Project.Data.IRepositories;
 
-namespace Project.Data
+namespace Project.Data.UnitOfWork
 {
     public interface IUnitOfWork: IDisposable
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using Project.Data;
+using Project.Data.UnitOfWork;
 using Project.Model;
 
 namespace Project.API
@@ -19,7 +19,7 @@ namespace Project.API
         [Route("expenses")]
         public IEnumerable<Expense> GetExpenses()
         {
-            return _unitofwork.Expenses.GetAllUnexpiredExpenses();
+            return _unitofwork.Expenses.All();
         }
 
         [HttpGet]
@@ -40,8 +40,7 @@ namespace Project.API
         [Route("expense/add")]
         public Expense Add(Expense expense)
         {
-           return _unitofwork.Expenses.Insert(expense,true);
+            return ModelState.IsValid ? _unitofwork.Expenses.Insert(expense,true) : null;
         }
-
     }
 }

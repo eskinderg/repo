@@ -2,17 +2,17 @@
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using Project.Data.IRepositories;
 
-namespace Project.Data
+namespace Project.Data.Repositories
 {
     public class Repository<T> : IRepository<T>
         where T : class
     {
 
         protected readonly DbContext Context;
-
-
-        public Repository(DbContext context)
+        
+        protected Repository(DbContext context)
         {
             Context = context;
         }
@@ -33,8 +33,8 @@ namespace Project.Data
             catch (DbEntityValidationException ex)
             {
                 var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
+                                    .SelectMany(x => x.ValidationErrors)
+                                    .Select(x => x.ErrorMessage);
 
                 // Join the list to a single string.
                 var fullErrorMessage = string.Join("; ", errorMessages);
@@ -73,17 +73,36 @@ namespace Project.Data
             return Context.SaveChanges();
         }
 
-
-        public void Dispose()
-        {
-            Context.Dispose();
-        }
-
         public IEnumerable<T> Select()
         {
             return Context.Set<T>();
         }
 
+
+
+        public IEnumerable<T> DeleteRange(IEnumerable<T> items, bool saveNow)
+        {
+            Context.Set<T>().RemoveRange(items);
+
+            if (saveNow)
+                Context.SaveChanges();
+            return items;
+        }
+
+
+        public IEnumerable<T> InsertRange(IEnumerable<T> items, bool saveNow)
+        {
+            Context.Set<T>().AddRange(items);
+
+            if (saveNow)
+                Context.SaveChanges();
+            return items;
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
+        }
     }
 
 }

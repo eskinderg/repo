@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Project.Data.IRepositories;
 using Project.Model;
 
-namespace Project.Data
+namespace Project.Data.Repositories
 {
     public class CategoryRepository : Repository<CategoryRepository>, ICategoryRepository
     {
@@ -13,10 +11,10 @@ namespace Project.Data
         { }
         public IEnumerable<Category> GetAllCategories()
         {
-            return ApplicationDbContext.Categories.ToList();
+            return ApplicationDbContext.Categories.Any() ? ApplicationDbContext.Categories.ToList() : null;
         }
 
-        public ApplicationDbContext ApplicationDbContext
+        private ApplicationDbContext ApplicationDbContext
         {
             get { return Context as ApplicationDbContext; }
         }

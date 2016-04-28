@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Project.Model;
 
-namespace Project.Data
+namespace Project.Data.IRepositories
 {
     public interface IExpenseRepository : IRepository<Expense>
     {
@@ -10,6 +10,10 @@ namespace Project.Data
         IEnumerable<Expense> All();
 
         IEnumerable<Expense> GetAllUnexpiredExpenses();
+
+        IEnumerable<Expense> GetExpiredExpenses();
+
+        IEnumerable<Expense> RemoveExpiredExpenses();
 
     }
 }

@@ -2,10 +2,13 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Project.Data;
-using System;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
+using Project.Data.ExpenseManager;
+using Project.Data.IRepositories;
+using Project.Data.Repositories;
+using Project.Data.UnitOfWork;
 
 namespace Project.App_Start
 {
@@ -21,22 +24,31 @@ namespace Project.App_Start
 
         private static void SetAutofacContainer()
         {
+
             var builder = new ContainerBuilder();
 
             var config = GlobalConfiguration.Configuration;
 
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-
+#region Comments
             //builder.RegisterType<ExpenseRepository>().As<IExpenseRepo>().InstancePerRequest();
 
             // builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
             //         .AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
+#endregion
+            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();
 
-            builder.Register(u => new UnitOfWork(new ApplicationDbContext())).As<IUnitOfWork>();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
-            #region Comments
+            builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
+            builder.RegisterType<ExpenseRepository>().As<IExpenseRepository>();
+
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());       //Controllers
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API
+
+#region Comments
+
+            //builder.Register(u => new UnitOfWork(new ApplicationDbContext())).As<IUnitOfWork>();
+
             //builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerRequest();
 
             /*builder.RegisterAssemblyTypes(typeof(NewsRepository).Assembly)
@@ -58,7 +70,7 @@ namespace Project.App_Start
             #endregion
 
             builder.RegisterFilterProvider();
-            IContainer container = builder.Build();
+            var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
