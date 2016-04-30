@@ -105,7 +105,6 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="ExpenseManager\ExpenseManager.cs" />
     <Compile Include="ExpenseManager\IExpenseManager.cs" />
-    <Compile Include="IDbContext.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ExpenseRepository.cs" />
     <Compile Include="IRepositories\ICategoryRepository.cs" />

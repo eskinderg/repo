@@ -273,6 +273,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Expired.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\UnExpired.cshtml" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />

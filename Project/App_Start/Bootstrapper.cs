@@ -24,11 +24,9 @@ namespace Project.App_Start
 
         private static void SetAutofacContainer()
         {
-
             var builder = new ContainerBuilder();
 
             var config = GlobalConfiguration.Configuration;
-
 #region Comments
             //builder.RegisterType<ExpenseRepository>().As<IExpenseRepo>().InstancePerRequest();
 
@@ -44,7 +42,6 @@ namespace Project.App_Start
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());       //Controllers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API
-
 #region Comments
 
             //builder.Register(u => new UnitOfWork(new ApplicationDbContext())).As<IUnitOfWork>();
@@ -68,7 +65,6 @@ namespace Project.App_Start
                             .As<UserManager<ApplicationUser>>().InstancePerRequest();
                             */
             #endregion
-
             builder.RegisterFilterProvider();
             var container = builder.Build();
 

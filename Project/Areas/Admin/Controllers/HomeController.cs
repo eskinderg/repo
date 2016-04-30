@@ -17,11 +17,20 @@ namespace Project.Areas.Admin.Controllers
             _expenseRepository = expenseRepository;
         }
 
-        //
-        // GET: /ExpenseManager/
         public ActionResult Index()
         {
             return View(_expenseManager.GetExpiredExpenses());
+        }
+
+
+        public ActionResult Expired()
+        {
+            return View(_expenseManager.GetExpiredExpenses());
+        }
+
+        public ActionResult UnExpired()
+        {
+            return View(_expenseManager.GetUnExpiredExpenses());
         }
 
         public ActionResult Details(int id)

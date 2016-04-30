@@ -23,12 +23,18 @@ namespace Project.Data.ExpenseManager
 
         public IEnumerable<Expense> GetExpiredExpenses()
         {
-            return _expenseRepository.GetAllUnexpiredExpenses();
+            return _expenseRepository.GetExpiredExpenses();
         }
 
         public bool DeleteExpense(int expenseId)
         {
             throw new NotImplementedException();
+        }
+
+
+        public IEnumerable<Expense> GetUnExpiredExpenses()
+        {
+            return _expenseRepository.GetAllUnexpiredExpenses();
         }
     }
 }

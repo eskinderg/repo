@@ -42,8 +42,8 @@ namespace Project.Data.Repositories
 
         public IEnumerable<Expense> RemoveExpiredExpenses()
         {
-            var expiredExpenses = this.GetExpiredExpenses();
-            return base.DeleteRange(expiredExpenses, true);
+            var expiredExpenses = GetExpiredExpenses();
+            return DeleteRange(expiredExpenses, true);
         }
     }
 }

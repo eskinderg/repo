@@ -7,6 +7,7 @@ namespace Project.Data.ExpenseManager
     {
         void RemoveExpiredExpenses();
         IEnumerable<Expense> GetExpiredExpenses();
+        IEnumerable<Expense> GetUnExpiredExpenses(); 
         bool DeleteExpense(int expenseId);
         
     }
