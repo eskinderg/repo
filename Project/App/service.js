@@ -16,12 +16,16 @@ project.service("expenseService", function ($http, $q) {
                     {
                         Date: expense.Date,
                         Description: expense.Description,
+
                         Category: {
+
                             Name: expense.Category.Name,
+
                             SubCategory: {
                                 Name: expense.Category.SubCategory.Name
-                            }
+                            },
                         },
+
                         Amount: expense.Amount
                     }
             });

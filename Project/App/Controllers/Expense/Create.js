@@ -48,7 +48,8 @@ project.controller('ExpenseGridController', function ($scope, expenseService ) {
                 { field: 'Description', displayName: 'Description'},
                 { field: 'Category.Name', displayName: 'Category' },
                 { field: 'Category.SubCategory.Name', displayName: 'SubCategory'},
-                { field: 'Amount', displayName: 'Amount' }
+                { field: 'Amount', displayName: 'Amount' },
+                { field: 'CreatedDate', displayName: 'Date Created' }
                 
             ]
     }

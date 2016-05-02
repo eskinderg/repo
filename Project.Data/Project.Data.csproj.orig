@@ -105,11 +105,12 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="ExpenseManager\ExpenseManager.cs" />
     <Compile Include="ExpenseManager\IExpenseManager.cs" />
+<<<<<<< Updated upstream
+=======
     <Compile Include="Mapping\BNAEntityTypeConfiguration.cs" />
     <Compile Include="Mapping\Categories\CategoriesMap.cs" />
     <Compile Include="Mapping\Expenses\ExpensesMap.cs" />
-    <Compile Include="Mapping\MenuItems\MenuItemsMap.cs" />
-    <Compile Include="Mapping\Menus\MenusMap.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ExpenseRepository.cs" />
     <Compile Include="IRepositories\ICategoryRepository.cs" />

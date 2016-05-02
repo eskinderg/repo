@@ -20,19 +20,17 @@ namespace Project.Data.Repositories
 
         public IEnumerable<Expense> All()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory);
+            return ApplicationDbContext.Expenses;
         }
 
         public IEnumerable<Expense> GetAllUnexpiredExpenses()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory)
-                                                .Where(e => e.Date > DateTime.Now);
+            return ApplicationDbContext.Expenses.Where(e => e.Date > DateTime.Now);
         }
 
         public IEnumerable<Expense> GetExpiredExpenses()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory)
-                                                .Where(e => e.Date < DateTime.Now);
+            return ApplicationDbContext.Expenses.Where(e => e.Date < DateTime.Now);
         }
 
         private ApplicationDbContext ApplicationDbContext
