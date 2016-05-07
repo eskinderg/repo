@@ -11,7 +11,7 @@ namespace Project.Data.Repositories
         { }
         public IEnumerable<Category> GetAllCategories()
         {
-            return ApplicationDbContext.Categories.Any() ? ApplicationDbContext.Categories.ToList() : null;
+            return ApplicationDbContext.Categories.Any() ? ApplicationDbContext.Categories : null;
         }
 
         private ApplicationDbContext ApplicationDbContext

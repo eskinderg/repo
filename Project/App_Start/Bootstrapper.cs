@@ -39,6 +39,8 @@ namespace Project.App_Start
 
             builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
             builder.RegisterType<ExpenseRepository>().As<IExpenseRepository>();
+            builder.RegisterType<ContentRepository>().As<IContentRepository>();
+            builder.RegisterType<FolderRepository>().As<IFolderRepository>();
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());       //Controllers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API

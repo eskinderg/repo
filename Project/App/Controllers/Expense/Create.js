@@ -1,40 +1,40 @@
 ﻿
 //Parent Controller
-project.controller('FormSubmitController', function ($scope,expenseService) {
+project.controller('FormSubmitController', function ($scope,projectService) {
 
-    $scope.categories = [];
+    $scope.folders = [];
 
-    expenseService.getAllCategories().then(function (result) {
-        $scope.categories = result;
+    projectService.getAllFolders().then(function (result) {
+        $scope.folders = result;
     });
 
-    $scope.formSubmit = function (expense) {
-
-        expenseService.addExpense(expense).then($scope.$broadcast('submitted', expense));
+    $scope.formSubmit = function (content) {
+        //alert('sssss');
+        projectService.addContent(content).then($scope.$broadcast('submitted', content));
         
-        $scope.expense = [];        //clear Form After Submission
+        $scope.content = [];        //clear Form After Submission
 
-        $scope.expenseform.$setPristine();
+        $scope.contentform.$setPristine();
 
     }
 });
 
 
 //Child Controller
-project.controller('ExpenseGridController', function ($scope, expenseService ) {
+project.controller('ExpenseGridController', function ($scope, projectService ) {
 
-    $scope.expenses = [];
+    $scope.contents = [];
     
 
-    expenseService.getAllExpense().then(function (result) {
+    projectService.getAllContents().then(function (result) {
         
-        $scope.expenses = result;
+        $scope.contents = result;
         
     });
 
 
     $scope.gridOptions = {
-        data: 'expenses',
+        data: 'contents',
         multiSelect: false,
         selectedItems: $scope.mySelections,
         enableCellEdit: true,
@@ -43,22 +43,22 @@ project.controller('ExpenseGridController', function ($scope, expenseService ) {
 
             columnDefs:
             [
-                
-                { field: 'Date', displayName: 'Date'},
-                { field: 'Description', displayName: 'Description'},
-                { field: 'Category.Name', displayName: 'Category' },
-                { field: 'Category.SubCategory.Name', displayName: 'SubCategory'},
-                { field: 'Amount', displayName: 'Amount' }
+
+                { field: 'Id', displayName: 'Content ID'},
+                { field: 'Title', displayName: 'Title'},
+                { field: 'XmlConfigId', displayName: 'XmlConfigId' },
+                { field: 'Summary', displayName: 'Summary' },
+                { field: 'Folder.Name', displayName: 'Folder' }
                 
             ]
     }
 
 
-    $scope.$on('submitted', function (event, expense)
+    $scope.$on('submitted', function (event, content)
     {
-        $scope.row = angular.copy(expense);
-        $scope.expenses.push($scope.row); //Updating the grid view
-        $scope.expense = [];
+        $scope.row = angular.copy(content);
+        $scope.contents.push($scope.row); //Updating the grid view
+        $scope.content = [];
     });
     
 });

@@ -1,28 +1,25 @@
 ﻿
-project.service("expenseService", function ($http, $q) {
+project.service("projectService", function ($http, $q) {
         
         return ({
-            addExpense: addExpense,
+            addContent: addContent,
             getAllExpense: getAllExpense,
-            getAllCategories: getAllCategories
+            getAllCategories: getAllCategories,
+            getAllContents: getAllContents,
+            getAllFolders: getAllFolders
         });
 
 
-        function addExpense(expense) {
+        function addContent(content) {
             var request = $http({
                 method: "POST",
-                url: "/api/expense/Add",
+                url: "/api/content/add",
                 data:
                     {
-                        Date: expense.Date,
-                        Description: expense.Description,
-                        Category: {
-                            Name: expense.Category.Name,
-                            SubCategory: {
-                                Name: expense.Category.SubCategory.Name
-                            }
-                        },
-                        Amount: expense.Amount
+                        Title: content.Title,
+                        XmlConfigId: content.XmlConfigId,
+                        FolderId:content.FolderId,
+                        Summary: content.Summary
                     }
             });
             return (request.then(handleSuccess, handleError));
@@ -40,6 +37,22 @@ project.service("expenseService", function ($http, $q) {
             var request = $http({
                 method: "GET",
                 url: "/api/getallcategories"
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getAllContents() {
+            var request = $http({
+                method: "GET",
+                url: "/api/contents"
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getAllFolders() {
+            var request = $http({
+                method: "GET",
+                url: "/api/folders"
             });
             return (request.then(handleSuccess, handleError));
         }
