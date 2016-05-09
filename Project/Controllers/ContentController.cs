@@ -18,11 +18,12 @@ namespace Project.Controllers
             _unitofwork = unitofwork;
         }
 
+        [OutputCache(Duration =8000)]
         public ActionResult Index()
         {
             //var x = _unitofwork.Contents.GetContent(5).Folder.Name;
 
-            
+
             //XmlDocument xDoc = new XmlDocument();
             //xDoc.LoadXml(x);
 
@@ -47,17 +48,17 @@ namespace Project.Controllers
 
             //var rootFolders = _unitofwork.Folders.RootFolders;
 
-            
-               // _unitofwork.Contents.GetAllContents().FirstOrDefault(co => co.Title == "New Content Title").Folder.Name;
+
+            // _unitofwork.Contents.GetAllContents().FirstOrDefault(co => co.Title == "New Content Title").Folder.Name;
 
             //ViewBag.HH = rootFolders.FirstOrDefault().Name;
 
             //ViewBag.HH =  Mapper.Map<ContentViewModel> (_unitofwork.Contents.GetContent(6)).Folder.Parent.Name;
-            
+
             //var list = _unitofwork.Contents.GetAllContents().ToList();//.Select(Mapper.Map<ContentViewModel>).ToList();
 
-
-            return View();
+            var contentList = _unitofwork.Contents.GetAllContents();
+            return View(contentList);
 
             //return View();
         }

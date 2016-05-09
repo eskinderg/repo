@@ -9,8 +9,7 @@ using Project.Model.Models;
 
 namespace Project.Model.ViewModels
 {
-    //[JsonObject(IsReference = true)]
-    //[DataContract(IsReference = true)]
+    [DataContract]
     public class ContentViewModel 
     {
         [DataMember]

@@ -13,7 +13,6 @@ namespace Project.Data
     {
         public ApplicationDbContext() : base("ProjectDB") {
             Database.SetInitializer<ApplicationDbContext>(null);
-            Configuration.LazyLoadingEnabled = false; 
         }
 
         public DbSet<Expense> Expenses { get; set; }

@@ -3,6 +3,7 @@ project.service("projectService", function ($http, $q) {
         
         return ({
             addContent: addContent,
+            getContent: getContent,
             getAllExpense: getAllExpense,
             getAllCategories: getAllCategories,
             getAllContents: getAllContents,
@@ -24,6 +25,16 @@ project.service("projectService", function ($http, $q) {
             });
             return (request.then(handleSuccess, handleError));
         }
+
+
+        function getContent(id) {
+            var request = $http({
+                method: "GET",
+                url: "/api/content/" + id
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
 
         function getAllExpense() {
             var request = $http({

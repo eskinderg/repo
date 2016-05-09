@@ -24,7 +24,7 @@
         @*<select class="form-control" ng-model="content.FolderId" ng-options="item as item.Name for item in folders track by item.Id"></select>*@
 
         <select class="form-control" name="folder" ng-model="content.FolderId">
-            <option selected="selected" disabled="disabled">Select a Folder</option>
+            <option value="" selected>Select Folder</option>
             <option ng-repeat="folder in folders" value="{{folder.Id}}">{{folder.Name}}</option>
         </select>
 

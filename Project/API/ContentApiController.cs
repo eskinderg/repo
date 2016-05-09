@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using Project.Data.UnitOfWork;
 using Project.Model;
 using Project.Model.Models;
 using Project.Model.ViewModels;
+using Project.Attribute;
+using System.Web.Http.OData;
 
-namespace Project.API
+namespace Project.Api
 {
     [RoutePrefix("Api")]
     public class ContentApiController : ApiController
@@ -21,13 +22,16 @@ namespace Project.API
 
         [HttpGet]
         [Route("contents")]
-        public IEnumerable<Content> GetAllContents()
+        [CacheClient(Duration =20)]
+        [EnableQuery]
+        //[ResponseType(typeof(IEnumerable<ContentViewModel>))]
+        public IEnumerable<ContentViewModel> GetAllContents()
         {
-            //IEnumerable<ContentViewModel> CVM = Mapper.Map<IEnumerable<ContentViewModel>>(_unitofwork.Contents.GetAllContents());
-            
+            IEnumerable<ContentViewModel> CVM = Mapper.Map<IEnumerable<ContentViewModel>>(_unitofwork.Contents.GetAllContents());
+
             //List<ContentViewModel> list = _unitofwork.Contents.GetAllContents().ToList().Select(Mapper.Map<ContentViewModel>).ToList();
 
-            return _unitofwork.Contents.GetAllContents();
+            return CVM; //_unitofwork.Contents.GetAllContents();
         }
 
         [HttpGet]

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Project.Model.Models.Content>
 
 @{
     ViewBag.Title = "Add Contents";
@@ -8,6 +8,38 @@
 {
     <script src="~/App/Controllers/Expense/Create.js"></script>
 }
+
+
+@*
+
+<table class="table">
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XmlConfigId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Folder.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Summary)
+        </td>
+        <td>
+
+        </td>
+    </tr>
+}
+
+</table>
+
+*@
+
+
 
 <div>
 

@@ -16,6 +16,9 @@ namespace Project.App_Start
             {
                 cfg.CreateMap<Content, ContentViewModel>()
                     .ForMember(dest=>dest.Folder,opt => opt.MapFrom(src=>src.Folder));
+
+                cfg.CreateMap<Folder, FolderViewModel>();
+
             });
         }
     }

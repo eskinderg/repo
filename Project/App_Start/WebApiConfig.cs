@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
-using Project.Model.Models;
+using System.Web.Http.OData;
 
 namespace Project
 {
@@ -12,20 +12,16 @@ namespace Project
         {
             // Web API configuration and services
 
-           /*var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-            config.Formatters.Remove(config.Formatters.XmlFormatter);*/
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
-            /*config.Formatters .JsonPreserveReferences();
-            config.Formatters.XmlPreserveReferences();
-            config.Formatters.ProtobufPreserveReferences(typeof(Folder).Assembly);*/
-
-            JsonMediaTypeFormatter jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().Single();
-            jsonFormatter.UseDataContractJsonSerializer = false;
-            jsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            jsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            jsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
-
+            //OData Support
+            config.Filters.Add(new EnableQueryAttribute()
+            {
+                
+                //PageSize = 2
+                // .. other settings
+            });
 
 
             // Web API routes

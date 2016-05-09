@@ -1,6 +1,6 @@
 ﻿
 //Parent Controller
-project.controller('FormSubmitController', function ($scope,projectService) {
+project.controller('FormSubmitController', function ($scope, projectService) {
 
     $scope.folders = [];
 
@@ -9,12 +9,12 @@ project.controller('FormSubmitController', function ($scope,projectService) {
     });
 
     $scope.formSubmit = function (content) {
-        //alert('sssss');
-        projectService.addContent(content).then($scope.$broadcast('submitted', content));
         
-        $scope.content = [];        //clear Form After Submission
+        projectService.addContent(content).then( function successCallback(newAddedContent){
+                $scope.$broadcast('submitted', newAddedContent)
+         });
 
-        $scope.contentform.$setPristine();
+        
 
     }
 });
@@ -54,11 +54,15 @@ project.controller('ExpenseGridController', function ($scope, projectService ) {
     }
 
 
-    $scope.$on('submitted', function (event, content)
+    $scope.$on('submitted', function (event, newAddedContent)
     {
-        $scope.row = angular.copy(content);
-        $scope.contents.push($scope.row); //Updating the grid view
-        $scope.content = [];
+            projectService.getContent(newAddedContent.Id).then( function successCallback(result) {            
+               
+                    $scope.contents.push(result); //Push the new Data to the grid view
+                    $scope.$parent.content = []; // Clear the submitted form data
+                    $scope.$parent.contentform.$setPristine(); // Make the form untouched
+                
+             });
     });
     
 });

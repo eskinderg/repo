@@ -15,7 +15,7 @@ namespace Project.Data.Repositories
 
         public IEnumerable<Content> GetAllContents()
         {
-            return ApplicationDbContext.Contents.Include(c=>c.Folder);
+            return ApplicationDbContext.Contents.Any() ? ApplicationDbContext.Contents.Include(c=>c.Folder) : null;
         }
 
         public Content GetContent(int id)
