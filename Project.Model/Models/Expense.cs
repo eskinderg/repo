@@ -6,8 +6,6 @@ namespace Project.Model
 
     public class Expense : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

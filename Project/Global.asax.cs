@@ -10,7 +10,6 @@ namespace Project
     {
         protected void Application_Start()
         {
-            AutoMapperConfig.RegisterMappings();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.OData;
+﻿using System.Web.Http;
 
 namespace Project
 {
@@ -16,12 +12,12 @@ namespace Project
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
             //OData Support
-            config.Filters.Add(new EnableQueryAttribute()
+            /*config.Filters.Add(new EnableQueryAttribute()
             {
                 
                 //PageSize = 2
                 // .. other settings
-            });
+            });*/
 
 
             // Web API routes

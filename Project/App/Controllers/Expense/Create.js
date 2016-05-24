@@ -9,13 +9,9 @@ project.controller('FormSubmitController', function ($scope, projectService) {
     });
 
     $scope.formSubmit = function (content) {
-        
-        projectService.addContent(content).then( function successCallback(newAddedContent){
-                $scope.$broadcast('submitted', newAddedContent)
-         });
-
-        
-
+        projectService.addContent(content).then(function successCallback(newAddedContent) {
+            $scope.$broadcast('submitted', newAddedContent);
+        });
     }
 });
 
@@ -25,13 +21,11 @@ project.controller('ExpenseGridController', function ($scope, projectService ) {
 
     $scope.contents = [];
     
-
     projectService.getAllContents().then(function (result) {
         
         $scope.contents = result;
         
     });
-
 
     $scope.gridOptions = {
         data: 'contents',
@@ -40,17 +34,14 @@ project.controller('ExpenseGridController', function ($scope, projectService ) {
         enableCellEdit: true,
         enableColumnResize: true,
         showFooter: true,
-
-            columnDefs:
-            [
-
-                { field: 'Id', displayName: 'Content ID'},
-                { field: 'Title', displayName: 'Title'},
-                { field: 'XmlConfigId', displayName: 'XmlConfigId' },
-                { field: 'Summary', displayName: 'Summary' },
-                { field: 'Folder.Name', displayName: 'Folder' }
-                
-            ]
+        columnDefs:
+        [
+            { field: 'Id', displayName: 'Content ID'},
+            { field: 'Title', displayName: 'Title'},
+            { field: 'XmlConfigId', displayName: 'XmlConfigId' },
+            { field: 'Summary', displayName: 'Summary' },
+            { field: 'Folder.Name', displayName: 'Folder' }       
+        ]
     }
 
 

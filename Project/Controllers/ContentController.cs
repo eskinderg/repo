@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
-using Project.Data.ExpenseManager;
+﻿using System.Web.Mvc;
+using System.Web.UI;
 using Project.Data.UnitOfWork;
-using Project.Model.Models;
-using Project.Model.ViewModels;
 
 namespace Project.Controllers
 {
@@ -18,9 +13,11 @@ namespace Project.Controllers
             _unitofwork = unitofwork;
         }
 
-        [OutputCache(Duration =8000)]
+        [OutputCache(Duration = 3600, VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Index()
         {
+
+#region Comments 
             //var x = _unitofwork.Contents.GetContent(5).Folder.Name;
 
 
@@ -56,11 +53,10 @@ namespace Project.Controllers
             //ViewBag.HH =  Mapper.Map<ContentViewModel> (_unitofwork.Contents.GetContent(6)).Folder.Parent.Name;
 
             //var list = _unitofwork.Contents.GetAllContents().ToList();//.Select(Mapper.Map<ContentViewModel>).ToList();
+#endregion
 
             var contentList = _unitofwork.Contents.GetAllContents();
             return View(contentList);
-
-            //return View();
         }
 
         public ActionResult DeleteExpired()

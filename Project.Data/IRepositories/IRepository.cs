@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Project.Model;
 
 namespace Project.Data.IRepositories
 {
+
+    
     public interface IRepository<T> : IDisposable
     {
         T Insert(T item, bool saveNow);
@@ -19,4 +23,5 @@ namespace Project.Data.IRepositories
 
         IEnumerable<T> Select();
     }
+     
 }

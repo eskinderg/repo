@@ -9,15 +9,13 @@ namespace Project.Data.Repositories
     public class Repository<T> : IRepository<T>
         where T : class
     {
-
+        
         protected readonly DbContext Context;
         
         protected Repository(DbContext context)
         {
             Context = context;
         }
-
-        //protected DbSet<T> DbSet { get; set; }
 
 
         public T Insert(T item, bool saveNow)

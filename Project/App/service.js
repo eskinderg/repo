@@ -26,7 +26,6 @@ project.service("projectService", function ($http, $q) {
             return (request.then(handleSuccess, handleError));
         }
 
-
         function getContent(id) {
             var request = $http({
                 method: "GET",

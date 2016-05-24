@@ -6,7 +6,6 @@ using Project.Model;
 using Project.Model.Models;
 using Project.Model.ViewModels;
 using Project.Attribute;
-using System.Web.Http.OData;
 
 namespace Project.Api
 {
@@ -23,7 +22,7 @@ namespace Project.Api
         [HttpGet]
         [Route("contents")]
         [CacheClient(Duration =20)]
-        [EnableQuery]
+        //[EnableQuery]
         //[ResponseType(typeof(IEnumerable<ContentViewModel>))]
         public IEnumerable<ContentViewModel> GetAllContents()
         {

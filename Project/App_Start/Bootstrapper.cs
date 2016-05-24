@@ -7,7 +7,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Project.Data.ExpenseManager;
 using Project.Data.IRepositories;
-using Project.Data.Repositories;
 using Project.Data.UnitOfWork;
 
 namespace Project.App_Start
@@ -18,8 +17,7 @@ namespace Project.App_Start
         public static void Run()
         {
             SetAutofacContainer();
-            //Configure AutoMapper
-           // AutoMapperConfiguration.Configure();
+            AutoMapperConfig.RegisterMappings();
         }
 
         private static void SetAutofacContainer()
@@ -33,26 +31,38 @@ namespace Project.App_Start
             // builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
             //         .AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
 #endregion
-            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();
-
+            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest(); // DBContext
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-
             builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
+
+#region Separate Injections
+         /*
+             
             builder.RegisterType<ExpenseRepository>().As<IExpenseRepository>();
             builder.RegisterType<ContentRepository>().As<IContentRepository>();
             builder.RegisterType<FolderRepository>().As<IFolderRepository>();
+            
+         */
+#endregion
+
+            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly)       //Using Reflection
+                   .Where(t => t.Name.EndsWith("Repository"))                   //All Repositories
+                   .AsImplementedInterfaces().InstancePerRequest();
+
+
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());       //Controllers
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API's
+
 #region Comments
 
-            //builder.Register(u => new UnitOfWork(new ApplicationDbContext())).As<IUnitOfWork>();
 
             //builder.RegisterType<DatabaseFactory>().As<IDatabaseFactory>().InstancePerRequest();
 
             /*builder.RegisterAssemblyTypes(typeof(NewsRepository).Assembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces().InstancePerRequest();
+             
             builder.RegisterAssemblyTypes(typeof(NewsService).Assembly)
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces().InstancePerRequest();*/
@@ -66,7 +76,8 @@ namespace Project.App_Start
                             c => new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new JuventusNewsApkEntities())))
                             .As<UserManager<ApplicationUser>>().InstancePerRequest();
                             */
-            #endregion
+#endregion
+
             builder.RegisterFilterProvider();
             var container = builder.Build();
 
