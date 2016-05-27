@@ -216,6 +216,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.ts" />
     <Content Include="App\Controllers\Expense\Create.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\project.js" />

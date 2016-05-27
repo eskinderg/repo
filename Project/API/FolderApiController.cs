@@ -20,9 +20,9 @@ namespace Project.Api
         [Route("folders")]
         public IEnumerable<FolderViewModel> Folders()
         {
-            IEnumerable<FolderViewModel> CVM = Mapper.Map<IEnumerable<FolderViewModel>>(_unitofwork.Folders.GetAllFolders());
+            IEnumerable<FolderViewModel> folders = Mapper.Map<IEnumerable<FolderViewModel>>(_unitofwork.Folders.GetAllFolders());
 
-            return CVM; // _unitofwork.Folders.GetAllFolders();
+            return folders; // _unitofwork.Folders.GetAllFolders();
         }
 
 

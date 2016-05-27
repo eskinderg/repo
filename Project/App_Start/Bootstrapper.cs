@@ -31,10 +31,9 @@ namespace Project.App_Start
             // builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
             //         .AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
 #endregion
-            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest(); // DBContext
+            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();     // Single instance DBContext
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
-
 #region Separate Injections
          /*
              
@@ -44,16 +43,12 @@ namespace Project.App_Start
             
          */
 #endregion
-
-            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly)       //Using Reflection
-                   .Where(t => t.Name.EndsWith("Repository"))                   //All Repositories
+            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly)                   //Using reflection
+                   .Where(t => t.Name.EndsWith("Repository"))                               //Get all repositories
                    .AsImplementedInterfaces().InstancePerRequest();
 
-
-
-            builder.RegisterControllers(Assembly.GetExecutingAssembly());       //Controllers
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());    //API's
-
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());                   //Register all Controllers
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());                //Register all API's
 #region Comments
 
 
@@ -77,11 +72,10 @@ namespace Project.App_Start
                             .As<UserManager<ApplicationUser>>().InstancePerRequest();
                             */
 #endregion
-
             builder.RegisterFilterProvider();
             var container = builder.Build();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }

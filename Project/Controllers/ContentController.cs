@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
 using Project.Data.UnitOfWork;
 
@@ -16,8 +17,7 @@ namespace Project.Controllers
         [OutputCache(Duration = 3600, VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient)]
         public ActionResult Index()
         {
-
-#region Comments 
+            #region Comments 
             //var x = _unitofwork.Contents.GetContent(5).Folder.Name;
 
 
@@ -54,14 +54,12 @@ namespace Project.Controllers
 
             //var list = _unitofwork.Contents.GetAllContents().ToList();//.Select(Mapper.Map<ContentViewModel>).ToList();
 #endregion
-
             var contentList = _unitofwork.Contents.GetAllContents();
             return View(contentList);
         }
 
         public ActionResult DeleteExpired()
         {
-            //_expenseManager.RemoveExpiredExpenses();
             return Content("Reponse Completed Sucsussfully");
         }
     }
