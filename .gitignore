@@ -213,3 +213,4 @@ ModelManifest.xml
 Project/Web.config
 Project/node_modules
 Web.config
+*.config
