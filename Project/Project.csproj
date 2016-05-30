@@ -217,7 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.ts" />
-    <Content Include="App\Controllers\Expense\Create.js" />
+    <Content Include="App\Controllers\Content\Create.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\project.js" />
     <Content Include="App\service.js" />
@@ -282,9 +282,9 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Expired.cshtml" />
     <Content Include="Areas\Admin\Views\Home\UnExpired.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />

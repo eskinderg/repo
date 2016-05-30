@@ -5,18 +5,13 @@ using Project.Model;
 
 namespace Project.Data.Repositories
 {
-    public class CategoryRepository : Repository<CategoryRepository>, ICategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         public CategoryRepository(ApplicationDbContext context):base(context)
         { }
         public IEnumerable<Category> GetAllCategories()
         {
-            return ApplicationDbContext.Categories.Any() ? ApplicationDbContext.Categories : null;
-        }
-
-        private ApplicationDbContext ApplicationDbContext
-        {
-            get { return Context as ApplicationDbContext; }
+            return Select().Any() ? Select() : null;
         }
     }
 }

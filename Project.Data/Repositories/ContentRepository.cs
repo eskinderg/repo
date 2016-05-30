@@ -11,26 +11,19 @@ namespace Project.Data.Repositories
     public class ContentRepository : Repository<Content>, IContentRepository
     {
         public ContentRepository(ApplicationDbContext context) : base(context)
-        { }
+        {  }
 
         public IEnumerable<Content> GetAllContents()
         {
-            return ApplicationDbContext.Contents.Any() ? ApplicationDbContext.Contents.Include(c=>c.Folder) : null;
+            return Select().Any() ? Select().Include(c=>c.Folder) : null;
         }
 
         public Content GetContent(int id)
         {
-            return ApplicationDbContext.Contents.Where(c => c.Id == id).
-                Include(c => c.Folder).
-                FirstOrDefault();
+            return Select().Where(c => c.Id == id).
+                                        Include(c => c.Folder).
+                                        FirstOrDefault();
         }
-
-
-        private ApplicationDbContext ApplicationDbContext
-        {
-            get { return Context as ApplicationDbContext; }
-        }
-
 
         public Content AddContent(Content content)
         {

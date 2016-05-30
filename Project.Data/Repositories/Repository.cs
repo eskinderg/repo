@@ -3,20 +3,19 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using Project.Data.IRepositories;
+using Project.Model;
 
 namespace Project.Data.Repositories
 {
-    public class Repository<T> : IRepository<T>
-        where T : class
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         
-        protected readonly DbContext Context;
+        protected readonly DbContext Context; 
         
         protected Repository(DbContext context)
         {
             Context = context;
         }
-
 
         public T Insert(T item, bool saveNow)
         {
@@ -71,11 +70,10 @@ namespace Project.Data.Repositories
             return Context.SaveChanges();
         }
 
-        public IEnumerable<T> Select()
+        public IQueryable<T> Select()
         {
             return Context.Set<T>();
         }
-
 
 
         public IEnumerable<T> DeleteRange(IEnumerable<T> items, bool saveNow)

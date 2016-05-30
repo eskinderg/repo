@@ -5,12 +5,10 @@ project.directive("currency", function () {
         require: "ngModel",
 
         link: function (scope, element, attributes, ngModel) {
-            ngModel.$validators.currency = function (modelValue) {
-
-                var currencyExp = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/;
-
-                return (currencyExp.test(modelValue));
-            }
+                ngModel.$validators.currency = function (modelValue) {
+                    var currencyExp = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/;
+                    return (currencyExp.test(modelValue));
+                }
         }
     };
 });
