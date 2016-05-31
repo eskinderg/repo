@@ -199,14 +199,15 @@
     <Compile Include="Api\ContentApiController.cs" />
     <Compile Include="Api\FolderApiController.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IExpenseManager.cs" />
     <Compile Include="Attribute\CacheClientAttribute.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -279,12 +280,11 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="ClassDiagram.cd" />
-    <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Expired.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\UnExpired.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\UnExpired.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Properties\PublishProfiles\publish.pubxml" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -1101,6 +1101,10 @@
     <ProjectReference Include="..\Project.Model\Project.Model.csproj">
       <Project>{c6ce0697-7c5a-4315-9b76-563654e0edfc}</Project>
       <Name>Project.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Service\Project.Service.csproj">
+      <Project>{dc6a4d04-4bdb-4765-8ae3-f6ebf5969284}</Project>
+      <Name>Project.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

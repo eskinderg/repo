@@ -1,17 +1,17 @@
-﻿using System.Web;
+﻿using Project.Services;
 using System.Web.Mvc;
 using System.Web.UI;
-using Project.Data.UnitOfWork;
+
 
 namespace Project.Controllers
 {
     public class ContentController : Controller
     {
-        private readonly IUnitOfWork _unitofwork;
+        private readonly IContentService _contentService;
 
-        public ContentController(IUnitOfWork unitofwork)
+        public ContentController(IContentService contentService)
         {
-            _unitofwork = unitofwork;
+            _contentService = contentService;
         }
 
         [OutputCache(Duration = 3600, VaryByParam = "none", Location = OutputCacheLocation.ServerAndClient)]
@@ -54,7 +54,7 @@ namespace Project.Controllers
 
             //var list = _unitofwork.Contents.GetAllContents().ToList();//.Select(Mapper.Map<ContentViewModel>).ToList();
 #endregion
-            var contentList = _unitofwork.Contents.GetAllContents();
+            var contentList = _contentService.GetAllContents();
             return View(contentList);
         }
 

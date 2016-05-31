@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Project.Model.Models.Content>
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<Project.Model.Models.Content>
 
 @{
     ViewBag.Title = "Index";
@@ -13,9 +14,6 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HTML)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Summary)
