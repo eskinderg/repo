@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using Project.Data.UnitOfWork;
 using Project.Model.ViewModels;
+using Project.Services;
 
 namespace Project.Api
 {
     [RoutePrefix("Api")]
     public class FolderApiController : ApiController
     {
-        private readonly IUnitOfWork _unitofwork;
+        private readonly IFolderService _folderService;
 
-        public FolderApiController(IUnitOfWork unitofwork)
+        public FolderApiController(IFolderService folderService)
         {
-            _unitofwork = unitofwork;
+            _folderService = folderService;
         }
 
         [HttpGet]
         [Route("folders")]
         public IEnumerable<FolderViewModel> Folders()
         {
-            IEnumerable<FolderViewModel> folders = Mapper.Map<IEnumerable<FolderViewModel>>(_unitofwork.Folders.GetAllFolders());
+            IEnumerable<FolderViewModel> folders = Mapper.Map<IEnumerable<FolderViewModel>>(_folderService.GetAllFolders());
 
             return folders; // _unitofwork.Folders.GetAllFolders();
         }

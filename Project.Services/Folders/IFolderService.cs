@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Model.Models;
 
-namespace Project.Data.IRepositories
+namespace Project.Services
 {
-    public interface IFolderRepository
+    public interface IFolderService
     {
         IEnumerable<Folder> GetAllFolders();
 

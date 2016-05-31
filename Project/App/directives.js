@@ -13,3 +13,18 @@ project.directive("currency", function () {
     };
 });
 
+
+project.directive("integer", function () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+
+        link: function (scope, element, attributes, ngModel) {
+                ngModel.$validators.integer = function (modelValue) {
+                    var integerExp = /^[0-9]*$/gm;
+                    return (integerExp.test(modelValue));
+                }
+        }
+    };
+});
+

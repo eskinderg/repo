@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Project.Data;
+using Project.Services;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
-using Project.Data.ExpenseManager;
-using Project.Data.IRepositories;
-using Project.Data.UnitOfWork;
+using Project.Data;
 
 namespace Project.App_Start
 {
@@ -23,29 +21,39 @@ namespace Project.App_Start
         private static void SetAutofacContainer()
         {
             var builder = new ContainerBuilder();
-
             var config = GlobalConfiguration.Configuration;
-#region Comments
-            //builder.RegisterType<ExpenseRepository>().As<IExpenseRepo>().InstancePerRequest();
 
-            // builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-            //         .AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
+            //builder.Register<IDbContext>(c => new ApplicationDbContext()).InstancePerHttpRequest();
+
+            builder.RegisterType<ApplicationDbContext>().As<IDbContext>().InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
+
+            builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
+            builder.RegisterType<FolderService>().As<IFolderService>().InstancePerLifetimeScope();
+            builder.RegisterType<ContentService>().As<IContentService>().InstancePerLifetimeScope();
+            builder.RegisterType<ExpenseService>().As<IExpenseService>().InstancePerLifetimeScope();
+
+#region Comments
+//builder.RegisterType<ExpenseRepository>().As<IExpenseRepo>().InstancePerRequest();
+
+// builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+//         .AsClosedTypesOf(typeof(IRepository<>)).AsImplementedInterfaces();
+
+//builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();     // Single instance DBContext
+//builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+//builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
 #endregion
-            builder.RegisterType<ApplicationDbContext>().AsSelf().InstancePerRequest();     // Single instance DBContext
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-            builder.RegisterType<ExpenseManager>().As<IExpenseManager>();
+
 #region Separate Injections
-         /*
-             
-            builder.RegisterType<ExpenseRepository>().As<IExpenseRepository>();
-            builder.RegisterType<ContentRepository>().As<IContentRepository>();
-            builder.RegisterType<FolderRepository>().As<IFolderRepository>();
-            
-         */
-#endregion
-            builder.RegisterAssemblyTypes(typeof(IRepository<>).Assembly)                   //Using reflection
-                   .Where(t => t.Name.EndsWith("Repository"))                               //Get all repositories
-                   .AsImplementedInterfaces().InstancePerRequest();
+            /*
+
+               builder.RegisterType<ExpenseRepository>().As<IExpenseRepository>();
+               builder.RegisterType<ContentRepository>().As<IContentRepository>();
+               builder.RegisterType<FolderRepository>().As<IFolderRepository>();
+
+            */
+            #endregion
 
             builder.RegisterControllers(Assembly.GetExecutingAssembly());                   //Register all Controllers
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());                //Register all API's

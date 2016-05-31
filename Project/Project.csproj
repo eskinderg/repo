@@ -207,6 +207,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IExpenseManager.cs" />
     <Compile Include="Attribute\CacheClientAttribute.cs" />
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1101,6 +1102,10 @@
     <ProjectReference Include="..\Project.Model\Project.Model.csproj">
       <Project>{c6ce0697-7c5a-4315-9b76-563654e0edfc}</Project>
       <Name>Project.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Services\Project.Services.csproj">
+      <Project>{1e34cf84-0b2d-4da1-ac9d-43f18dc9aea2}</Project>
+      <Name>Project.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

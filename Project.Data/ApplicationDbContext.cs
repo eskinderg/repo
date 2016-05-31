@@ -2,9 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using Project.Data.Mapping;
 using Project.Model;
-using Project.Model.Models;
 using System.Data.Entity.ModelConfiguration;
 using System.Collections.Generic;
 using System.Data;
@@ -19,17 +17,6 @@ namespace Project.Data
         {
             Database.SetInitializer<ApplicationDbContext>(null);
         }
-
-        public DbSet<Expense> Expenses { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
-
-        public DbSet<SubCategory> SubCategories { get; set; }
-
-        public DbSet<Content> Contents { get; set; }
-
-        public DbSet<Folder> Folders { get; set; }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,22 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
-using Project.Data.UnitOfWork;
 using Project.Model;
 using Project.Model.Models;
 using Project.Model.ViewModels;
 using Project.Attribute;
+using Project.Services;
 
 namespace Project.Api
 {
     [RoutePrefix("Api")]
     public class ContentApiController : ApiController
     {
-        private readonly IUnitOfWork _unitofwork;
+        private readonly IContentService _contentService;
+        private readonly ICategoryService _categoryService;
 
-        public ContentApiController(IUnitOfWork unitofwork)
+
+        public ContentApiController(IContentService contentService, ICategoryService categoryService)
         {
-            _unitofwork = unitofwork;
+            _contentService = contentService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -26,7 +29,7 @@ namespace Project.Api
         //[ResponseType(typeof(IEnumerable<ContentViewModel>))]
         public IEnumerable<ContentViewModel> GetAllContents()
         {
-            IEnumerable<ContentViewModel> CVM = Mapper.Map<IEnumerable<ContentViewModel>>(_unitofwork.Contents.GetAllContents());
+            IEnumerable<ContentViewModel> CVM = Mapper.Map<IEnumerable<ContentViewModel>>(_contentService.GetAllContents());
 
             //List<ContentViewModel> list = _unitofwork.Contents.GetAllContents().ToList().Select(Mapper.Map<ContentViewModel>).ToList();
 
@@ -37,21 +40,21 @@ namespace Project.Api
         [Route("content/{id}")]
         public Content GetContent(int id)
         {
-            return _unitofwork.Contents.GetContent(id);
+            return _contentService.GetContent(id);
         }
 
         [HttpGet]
         [Route("getallcategories")]
         public IEnumerable<Category> GetAllCategories()
         {
-            return _unitofwork.Categories.GetAllCategories();
+            return _categoryService.GetAllCategories();
         }
 
         [HttpPost]
         [Route("content/add")]
         public Content Add(Content content)
         {
-            return ModelState.IsValid ? _unitofwork.Contents.AddContent(content) : null;
+            return ModelState.IsValid ? _contentService.AddContent(content) : null;
         }
     }
 }

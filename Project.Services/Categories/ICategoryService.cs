@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Project.Model;
 
-namespace Project.Data.IRepositories
+namespace Project.Services
 {
-    public interface ICategoryRepository
+    public interface ICategoryService
     {
         IEnumerable<Category> GetAllCategories();
     }

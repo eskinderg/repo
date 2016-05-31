@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Project.Model.Models;
 
-namespace Project.Data.IRepositories
+namespace Project.Services
 {
-    public interface IContentRepository
+    public interface IContentService
     {
         IEnumerable<Content> GetAllContents();
 

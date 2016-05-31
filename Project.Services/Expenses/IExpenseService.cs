@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Project.Model;
 
-namespace Project.Data.IRepositories
+namespace Project.Services
 {
-    public interface IExpenseRepository : IRepository<Expense>
+    public interface IExpenseService
     {
         Expense GetById(int id);
 

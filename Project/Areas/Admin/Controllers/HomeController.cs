@@ -1,7 +1,5 @@
-﻿using System.Web.Mvc;
-using Project.Data.ExpenseManager;
-using Project.Data.IRepositories;
-using Project.Data.UnitOfWork;
+﻿using Project.Services;
+using System.Web.Mvc;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -9,33 +7,34 @@ namespace Project.Areas.Admin.Controllers
     {
 
         private readonly IExpenseManager _expenseManager;
-        private readonly IExpenseRepository _expenseRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IExpenseService _expenseService;
+        private readonly IContentService _contentService;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController(IContentService contentService, IExpenseService expenseService)
         {
-            _unitOfWork = unitOfWork;
+            _contentService = contentService;
+            _expenseService = expenseService;
         }
 
         public ActionResult Index()
         {
-            return View(_unitOfWork.Contents.GetAllContents());
+            return View(_contentService.GetAllContents());
         }
 
 
         public ActionResult Expired()
         {
-            return View(_expenseManager.GetExpiredExpenses());
+            return View();// (_expenseManager.GetExpiredExpenses());
         }
 
         public ActionResult UnExpired()
         {
-            return View(_expenseManager.GetUnExpiredExpenses());
+            return View(); // (_expenseManager.GetUnExpiredExpenses());
         }
 
         public ActionResult Details(int id)
         {
-            return Content(_expenseRepository.GetById(id).Description);
+            return Content(_contentService.GetContent(id).Summary);
         }
 	}
 }
