@@ -18,7 +18,7 @@ namespace Project.Data.Mapping
             this.ToTable("content");
             this.Property(c => c.Id).HasColumnName("content_id").IsRequired();
             this.Property(c => c.Title).HasColumnName("content_title");
-            this.Property(c => c.HTML).HasColumnName("content_html");
+            this.Property(c => c.Html).HasColumnName("content_html");
             this.Property(c => c.Summary).HasColumnName("content_teaser");
             this.Property(c => c.XmlConfigId).HasColumnName("xml_config_id");
             this.Property(c => c.FolderId).HasColumnName("folder_id").IsOptional();
