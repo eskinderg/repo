@@ -7,8 +7,9 @@ namespace Project.Data.IRepositories
 {
 
     
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T> : IDisposable where T : BaseEntity
     {
+
         T Insert(T item, bool saveNow);
 
         T Update(T item, bool saveNow);
@@ -21,7 +22,7 @@ namespace Project.Data.IRepositories
 
         IEnumerable<T> InsertRange(IEnumerable<T> items, bool saveNow);
 
-        IEnumerable<T> Select();
+        IQueryable<T> Select();
     }
      
 }

@@ -15,29 +15,24 @@ namespace Project.Data.Repositories
 
         public Expense GetById(int id)
         {
-            return ApplicationDbContext.Expenses.Find(id);
+            return GetById(id);
         }
 
         public IEnumerable<Expense> All()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory);
+            return Select().Include(e => e.Category.SubCategory);
         }
 
         public IEnumerable<Expense> GetAllUnexpiredExpenses()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory)
+            return Select().Include(e => e.Category.SubCategory)
                                                 .Where(e => e.Date > DateTime.Now);
         }
 
         public IEnumerable<Expense> GetExpiredExpenses()
         {
-            return ApplicationDbContext.Expenses.Include(e => e.Category.SubCategory)
+            return Select().Include(e => e.Category.SubCategory)
                                                 .Where(e => e.Date < DateTime.Now);
-        }
-
-        private ApplicationDbContext ApplicationDbContext
-        {
-            get { return Context as ApplicationDbContext; }
         }
 
         public IEnumerable<Expense> RemoveExpiredExpenses()

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Project.Data.ExpenseManager;
 using Project.Data.IRepositories;
+using Project.Data.UnitOfWork;
 
 namespace Project.Areas.Admin.Controllers
 {
@@ -9,17 +10,16 @@ namespace Project.Areas.Admin.Controllers
 
         private readonly IExpenseManager _expenseManager;
         private readonly IExpenseRepository _expenseRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-
-        public HomeController(IExpenseManager expenseManager, IExpenseRepository expenseRepository)
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _expenseManager = expenseManager;
-            _expenseRepository = expenseRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()
         {
-            return View(_expenseManager.GetExpiredExpenses());
+            return View(_unitOfWork.Contents.GetAllContents());
         }
 
 

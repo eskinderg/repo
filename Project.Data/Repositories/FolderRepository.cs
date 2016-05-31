@@ -10,32 +10,24 @@ namespace Project.Data.Repositories
         public FolderRepository(ApplicationDbContext context) : base(context)
         {}
 
-
-
         public IEnumerable<Folder> GetAllFolders()
         {
-            return ApplicationDbContext.Folders;
+            return Select();
         }
 
         public Folder GetFolder(string name)
         {
-            return ApplicationDbContext.Folders.FirstOrDefault(f => f.Name==name);
+            return Select().FirstOrDefault(f => f.Name==name);
         }
 
         public Folder GetFolder(int id)
         {
-            return ApplicationDbContext.Folders.FirstOrDefault(f => f.Id == id);
+            return Select().FirstOrDefault(f => f.Id == id);
         }
-
-        private ApplicationDbContext ApplicationDbContext
-        {
-            get { return Context as ApplicationDbContext; }
-        }
-
 
         public IEnumerable<Folder> RootFolders
         {
-            get { return ApplicationDbContext.Folders.Where(f => f.Name == null); }
+            get { return Select().Where(f => f.Name == null); }
         }
     }
 }

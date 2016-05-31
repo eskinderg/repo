@@ -38,7 +38,6 @@ namespace Project.Data
                                         .Where(type => type.BaseType != null && type.BaseType.IsGenericType &&
                                                         type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>));
 
-
             foreach (var configurationInstance in typesToRegister.Select(Activator.CreateInstance))
             {
                 modelBuilder.Configurations.Add((dynamic) configurationInstance);

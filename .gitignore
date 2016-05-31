@@ -211,4 +211,11 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 Project/Web.config
+<<<<<<< HEAD
 node_modules
+=======
+Project/node_modules
+Web.config
+*.config
+Project/Web.config
+>>>>>>> 1560fb9bccf4d2418e61a4e3ee1ecfeec967a0b8
