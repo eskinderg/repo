@@ -16,7 +16,8 @@ namespace Project.Api
         private readonly ICategoryService _categoryService;
 
 
-        public ContentApiController(IContentService contentService, ICategoryService categoryService)
+        public ContentApiController(IContentService contentService, 
+                                    ICategoryService categoryService)
         {
             _contentService = contentService;
             _categoryService = categoryService;
@@ -25,15 +26,10 @@ namespace Project.Api
         [HttpGet]
         [Route("contents")]
         [CacheClient(Duration =20)]
-        //[EnableQuery]
-        //[ResponseType(typeof(IEnumerable<ContentViewModel>))]
         public IEnumerable<ContentViewModel> GetAllContents()
         {
-            IEnumerable<ContentViewModel> CVM = Mapper.Map<IEnumerable<ContentViewModel>>(_contentService.GetAllContents());
-
-            //List<ContentViewModel> list = _unitofwork.Contents.GetAllContents().ToList().Select(Mapper.Map<ContentViewModel>).ToList();
-
-            return CVM; //_unitofwork.Contents.GetAllContents();
+            var cvm = Mapper.Map<IEnumerable<ContentViewModel>>(_contentService.GetAllContents());
+            return cvm;
         }
 
         [HttpGet]

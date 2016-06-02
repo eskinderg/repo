@@ -23,7 +23,9 @@ namespace Project.App_Start
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;
 
+#region diffrent  Web.config
             //builder.Register<IDbContext>(c => new ApplicationDbContext()).InstancePerHttpRequest();
+#endregion
 
             builder.RegisterType<ApplicationDbContext>().As<IDbContext>().InstancePerLifetimeScope();
 

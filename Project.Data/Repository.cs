@@ -7,36 +7,146 @@ using System;
 
 namespace Project.Data
 {
-    public partial class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        #region Fields
-
+        
         private readonly IDbContext _context;
         private IDbSet<T> _entities;
 
-        #endregion
-
-        #region Ctor
-
-        /// <summary>
-        /// Ctor
-        /// </summary>
-        /// <param name="context">Object context</param>
         public Repository(IDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
-        #endregion
+        public T GetById(object id)
+        {
+            return Entities.Find(id);
+        }
 
-        #region Utilities
+        public void Insert(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                    throw new ArgumentNullException("entity");
 
-        /// <summary>
-        /// Get full error
-        /// </summary>
-        /// <param name="exc">Exception</param>
-        /// <returns>Error</returns>
-        protected string GetFullErrorText(DbEntityValidationException exc)
+                Entities.Add(entity);
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+        public void Insert(IEnumerable<T> entities)
+        {
+            try
+            {
+                if (entities == null)
+                    throw new ArgumentNullException("entities");
+
+                foreach (var entity in entities)
+                    Entities.Add(entity);
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+
+        public void Update(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                    throw new ArgumentNullException("entity");
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+        public void Update(IEnumerable<T> entities)
+        {
+            try
+            {
+                if (entities == null)
+                    throw new ArgumentNullException("entities");
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+
+        public void Delete(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                    throw new ArgumentNullException("entity");
+
+                Entities.Remove(entity);
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            try
+            {
+                if (entities == null)
+                    throw new ArgumentNullException("entities");
+
+                foreach (var entity in entities)
+                    Entities.Remove(entity);
+
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw new Exception(GetFullErrorText(dbEx), dbEx);
+            }
+        }
+
+        public IQueryable<T> Table
+        {
+            get
+            {
+                return Entities;
+            }
+        }
+
+        public IQueryable<T> TableNoTracking
+        {
+            get
+            {
+                return Entities.AsNoTracking();
+            }
+        }
+
+        private IDbSet<T> Entities
+        {
+            get { return _entities ?? (_entities = _context.Set<T>()); }
+        }
+
+        private string GetFullErrorText(DbEntityValidationException exc)
         {
             var msg = string.Empty;
             foreach (var validationErrors in exc.EntityValidationErrors)
@@ -45,186 +155,7 @@ namespace Project.Data
             return msg;
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Get entity by identifier
-        /// </summary>
-        /// <param name="id">Identifier</param>
-        /// <returns>Entity</returns>
-        public virtual T GetById(object id)
-        {
-            //see some suggested performance optimization (not tested)
-            //http://stackoverflow.com/questions/11686225/dbset-find-method-ridiculously-slow-compared-to-singleordefault-on-id/11688189#comment34876113_11688189
-            return Entities.Find(id);
-        }
-
-        /// <summary>
-        /// Insert entity
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        public virtual void Insert(T entity)
-        {
-            try
-            {
-                if (entity == null)
-                    throw new ArgumentNullException("entity");
-
-                this.Entities.Add(entity);
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        /// <summary>
-        /// Insert entities
-        /// </summary>
-        /// <param name="entities">Entities</param>
-        public virtual void Insert(IEnumerable<T> entities)
-        {
-            try
-            {
-                if (entities == null)
-                    throw new ArgumentNullException("entities");
-
-                foreach (var entity in entities)
-                    this.Entities.Add(entity);
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        /// <summary>
-        /// Update entity
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        public virtual void Update(T entity)
-        {
-            try
-            {
-                if (entity == null)
-                    throw new ArgumentNullException("entity");
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        /// <summary>
-        /// Update entities
-        /// </summary>
-        /// <param name="entities">Entities</param>
-        public virtual void Update(IEnumerable<T> entities)
-        {
-            try
-            {
-                if (entities == null)
-                    throw new ArgumentNullException("entities");
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        /// <summary>
-        /// Delete entity
-        /// </summary>
-        /// <param name="entity">Entity</param>
-        public virtual void Delete(T entity)
-        {
-            try
-            {
-                if (entity == null)
-                    throw new ArgumentNullException("entity");
-
-                this.Entities.Remove(entity);
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        /// <summary>
-        /// Delete entities
-        /// </summary>
-        /// <param name="entities">Entities</param>
-        public virtual void Delete(IEnumerable<T> entities)
-        {
-            try
-            {
-                if (entities == null)
-                    throw new ArgumentNullException("entities");
-
-                foreach (var entity in entities)
-                    this.Entities.Remove(entity);
-
-                this._context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                throw new Exception(GetFullErrorText(dbEx), dbEx);
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets a table
-        /// </summary>
-        public virtual IQueryable<T> Table
-        {
-            get
-            {
-                return this.Entities;
-            }
-        }
-
-        /// <summary>
-        /// Gets a table with "no tracking" enabled (EF feature) Use it only when you load record(s) only for read-only operations
-        /// </summary>
-        public virtual IQueryable<T> TableNoTracking
-        {
-            get
-            {
-                return this.Entities.AsNoTracking();
-            }
-        }
-
-        /// <summary>
-        /// Entities
-        /// </summary>
-        protected virtual IDbSet<T> Entities
-        {
-            get
-            {
-                if (_entities == null)
-                    _entities = _context.Set<T>();
-                return _entities;
-            }
-        }
-
-        #endregion
+        
     }
 
 }
